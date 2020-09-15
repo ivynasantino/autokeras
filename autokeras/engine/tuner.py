@@ -188,7 +188,9 @@ class AutoTuner(kerastuner.engine.tuner.Tuner):
 
             pipeline, model = self.final_fit(**copied_fit_kwargs)
         else:
-            model = self.get_best_models()[0]
+            model = self.get_best_models()
+            print("########## MODELS #######")
+            print(model)
             pipeline = pipeline_module.load_pipeline(
                 self._pipeline_path(self.oracle.get_best_trials(1)[0].trial_id)
             )
@@ -215,7 +217,7 @@ class AutoTuner(kerastuner.engine.tuner.Tuner):
         ]
 
     def _get_best_trial_epochs(self):
-        best_trial = self.oracle.get_best_trials(1)[0]
+        best_trial = self.oracle.get_best_trials(1)[0] 
         return self.oracle.get_trial(best_trial.trial_id).best_step
 
     def _build_best_model(self):
